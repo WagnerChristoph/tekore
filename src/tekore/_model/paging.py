@@ -1,18 +1,19 @@
-from typing import Optional, Sequence
+from typing import Optional, Sequence, TypeVar, Generic
 
 from .serialise import Model
 
+T = TypeVar('T', bound=Model)
 
-class Paging(Model):
+class Paging(Model, Generic[T]):
     """Paging base."""
 
     href: str
-    items: Sequence[Model]
+    items: Sequence[T]
     limit: int
     next: Optional[str]
 
 
-class OffsetPaging(Paging):
+class OffsetPaging(Paging, Generic[T]):
     """
     Offset paging base.
 

@@ -60,7 +60,7 @@ class PlaylistTrack(Model):
     video_thumbnail: Optional[dict]
 
 
-class PlaylistTrackPaging(OffsetPaging):
+class PlaylistTrackPaging(OffsetPaging[PlaylistTrack]):
     """Paging of playlist tracks."""
 
     items: List[PlaylistTrack]
@@ -98,7 +98,7 @@ class FullPlaylist(Playlist):
     tracks: PlaylistTrackPaging
 
 
-class SimplePlaylistPaging(OffsetPaging):
+class SimplePlaylistPaging(OffsetPaging[Optional[SimplePlaylist]]):
     """Paging of simplified playlists."""
 
     items: List[Optional[SimplePlaylist]]

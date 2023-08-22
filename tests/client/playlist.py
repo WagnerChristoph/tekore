@@ -1,6 +1,7 @@
 import pytest
 
 from tekore import to_uri
+import tekore as tk
 
 from ._resources import (
     image,
@@ -124,6 +125,12 @@ class TestSpotifyPlaylistView:
     def test_playlist_with_podcast(self, user_client):
         playlist = user_client.playlist(playlist_special)
         assert playlist.id == playlist_special
+
+    def test_typed(self):
+        user_client: tk.Spotify = tk.Spotify("")
+        playlists = user_client.playlists("")
+        x: list[tk.model.SimplePlaylist] = list(user_client.all_items(playlists))
+
 
 
 def assert_items_equal(client, playlist: str, items: list):

@@ -1,4 +1,4 @@
-from typing import Generator, Optional
+from typing import Generator, Optional, TypeVar
 
 from tekore._sender import BadRequest
 from tekore.model import Model, OffsetPaging, Paging
@@ -6,6 +6,7 @@ from tekore.model import Model, OffsetPaging, Paging
 from .base import SpotifyBase
 from .decor import send_and_process
 
+T = TypeVar('T', bound=Model)
 
 def parse_paging_result(result):
     """Parse through the varying paging layouts."""
@@ -122,7 +123,7 @@ class SpotifyPaging(SpotifyBase):
             yield page
             page = await self._async_next(page)
 
-    def all_items(self, page: Paging) -> Generator[Model, None, None]:
+    def all_items(self, page: Paging[T]) -> Generator[T, None, None]:
         """
         Retrieve all items from all pages of a paging.
 
